@@ -9,9 +9,11 @@ import CaseStudySection from "@/components/CaseStudySection";
 import BlueCtaBanner from "@/components/BlueCtaBanner";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 
 export default function Home() {
   return (
+    <MotionProvider>
     <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-100 selection:text-[#1541e0]">
       <Header />
       <main className="flex-1">
@@ -26,5 +28,6 @@ export default function Home() {
       </main>
       <Footer />
     </div>
+    </MotionProvider>
   );
 }

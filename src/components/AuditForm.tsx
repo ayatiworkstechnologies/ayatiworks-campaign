@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { HiArrowRight } from "react-icons/hi2";
 
 interface AuditFormProps {
   id?: string;
@@ -13,8 +14,8 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
     phoneNumber: "",
     websiteUrl: "",
     adSpend: "",
-    role: "",
-    agreeToTerms: true,
+    goal: "",
+    agreeToTerms: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,7 +34,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
 
@@ -45,20 +46,22 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
       setErrorMessage("Please enter a valid work email address.");
       return;
     }
-    if (!formData.phoneNumber.trim()) {
-      setErrorMessage("Please enter your phone number.");
+    if (!/^\+?[0-9\s()-]{7,20}$/.test(formData.phoneNumber.trim())) {
+      setErrorMessage("Please enter a valid phone number.");
       return;
     }
-    if (!formData.websiteUrl.trim()) {
-      setErrorMessage("Please enter your website URL.");
+    try {
+      new URL(formData.websiteUrl);
+    } catch {
+      setErrorMessage("Please enter a valid website URL, including https://.");
       return;
     }
     if (!formData.adSpend) {
       setErrorMessage("Please select your monthly ad spend.");
       return;
     }
-    if (!formData.role) {
-      setErrorMessage("Please select what describes you best.");
+    if (!formData.goal) {
+      setErrorMessage("Please select your main advertising goal.");
       return;
     }
     if (!formData.agreeToTerms) {
@@ -66,11 +69,26 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
       return;
     }
 
+    const endpoint = process.env.NEXT_PUBLIC_AUDIT_FORM_ENDPOINT;
+    if (!endpoint) {
+      setErrorMessage("Audit submissions are not configured yet. Please contact Ayatiworks directly.");
+      return;
+    }
+
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error("Submission failed");
       setIsSubmitting(false);
       setIsSuccess(true);
-    }, 700);
+    } catch {
+      setIsSubmitting(false);
+      setErrorMessage("We could not send your request. Please try again or contact Ayatiworks directly.");
+    }
   };
 
   return (
@@ -113,8 +131,8 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
                 phoneNumber: "",
                 websiteUrl: "",
                 adSpend: "",
-                role: "",
-                agreeToTerms: true,
+                goal: "",
+                agreeToTerms: false,
               });
             }}
             className="mt-4 px-6 py-2.5 rounded-xl bg-white text-[#1541e0] font-bold text-xs sm:text-sm hover:bg-blue-50 transition-all duration-200 shadow-md hover:scale-105 active:scale-95"
@@ -244,31 +262,30 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
               </div>
             </div>
 
-            {/* What Describes You Best */}
+            {/* Main Advertising Goal */}
             <div className="space-y-1">
               <label
-                htmlFor="role"
+                htmlFor="goal"
                 className="block text-xs sm:text-[13px] font-semibold text-white tracking-wide"
               >
-                What Describes You Best? *
+                Main Advertising Goal *
               </label>
               <div className="relative">
                 <select
-                  id="role"
-                  name="role"
+                  id="goal"
+                  name="goal"
                   required
-                  value={formData.role}
+                  value={formData.goal}
                   onChange={handleChange}
                   className="w-full bg-white text-slate-900 text-xs sm:text-sm rounded-lg px-3.5 py-2.5 outline-none transition-all duration-200 shadow-sm appearance-none font-normal pr-8 cursor-pointer focus:ring-2 focus:ring-amber-400 focus:shadow-[0_0_12px_rgba(251,191,36,0.3)]"
                 >
                   <option value="" disabled>
-                    Select an option
+                    Select your primary goal
                   </option>
-                  <option value="founder">Founder / CEO / Managing Director</option>
-                  <option value="cmo">CMO / Head of Marketing</option>
-                  <option value="growth">Growth / Brand Manager</option>
-                  <option value="ecommerce">E-Commerce Brand Owner</option>
-                  <option value="other">Other Business Leader</option>
+                  <option value="lead-generation">Generate qualified leads</option>
+                  <option value="ecommerce-growth">Grow e-commerce sales</option>
+                  <option value="brand-awareness">Build brand awareness</option>
+                  <option value="improve-roas">Improve ROAS</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
@@ -297,15 +314,15 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
             </label>
           </div>
 
-          {/* Submit Button with Magnetic Hover Feel */}
+          {/* Submit Button with Exact Matching Design */}
           <div className="pt-2">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-white hover:bg-slate-50 text-[#1541e0] font-extrabold text-xs sm:text-sm tracking-wider uppercase py-3.5 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-2xl hover:scale-[1.01] flex items-center justify-center gap-2 group cursor-pointer active:scale-[0.99] disabled:opacity-80"
+              className="w-full bg-white hover:bg-slate-50 text-[#1541e0] font-black text-xs sm:text-[13px] tracking-wider uppercase pl-5 pr-2.5 py-2.5 rounded-none sm:rounded-xs transition-all duration-200 shadow-xl hover:shadow-2xl flex items-center justify-between gap-3 group cursor-pointer active:scale-[0.99] disabled:opacity-80"
             >
               {isSubmitting ? (
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center gap-2 w-full py-1">
                   <svg className="animate-spin h-4 w-4 text-[#1541e0]" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
@@ -314,9 +331,9 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
                 </span>
               ) : (
                 <>
-                  <span>GET MY FREE GROWTH AUDIT</span>
-                  <span className="w-5 h-5 rounded bg-amber-500 text-white flex items-center justify-center text-xs font-bold group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200 shadow-xs">
-                    ↗
+                  <span className="text-left font-black tracking-wider">GET MY FREE GROWTH AUDIT</span>
+                  <span className="w-8 h-8 rounded-xs bg-[#ea580c] text-white flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform duration-200 shadow-xs">
+                    <HiArrowRight className="w-4 h-4 text-white" />
                   </span>
                 </>
               )}
