@@ -10,9 +10,43 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Performance Marketing Agency | Ayatiworks",
+  metadataBase: new URL("https://www.ayatiworks.com"),
+  title: {
+    default: "Performance Marketing Agency | Ayatiworks",
+    template: "%s | Ayatiworks",
+  },
   description:
     "Ayatiworks is a premier performance marketing agency delivering measurable return on ad spend across Google, Meta, programmatic, and leading growth channels.",
+  applicationName: "Ayatiworks",
+  keywords: [
+    "performance marketing agency",
+    "Google Ads agency",
+    "Meta Ads agency",
+    "programmatic advertising",
+    "ROAS optimization",
+    "digital marketing agency India",
+  ],
+  authors: [{ name: "Ayatiworks", url: "https://www.ayatiworks.com" }],
+  creator: "Ayatiworks",
+  publisher: "Ayatiworks",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Ayatiworks",
+    title: "Performance Marketing Agency | Ayatiworks",
+    description: "Performance marketing built to make every advertising rupee work harder.",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Ayatiworks Performance Marketing" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Performance Marketing Agency | Ayatiworks",
+    description: "Performance marketing built to make every advertising rupee work harder.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({
