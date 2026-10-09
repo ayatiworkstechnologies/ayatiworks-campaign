@@ -110,13 +110,9 @@ export default function DashboardShowcaseSection() {
               <div className="w-2.5 h-20 bg-blue-500 rounded-t-sm" />
             </div>
 
-            {/* Angled Card */}
+            {/* Angled Card (Flat on mobile, 3D angled on desktop) */}
             <div
-              className="w-full max-w-sm bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-xl shadow-blue-500/10 text-left transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/15"
-              style={{
-                transform: "perspective(1200px) rotateY(6deg) rotateX(2deg)",
-                transformStyle: "preserve-3d",
-              }}
+              className="w-full max-w-sm bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-xl shadow-blue-500/10 text-left transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/15 lg:[transform:perspective(1200px)_rotateY(6deg)_rotateX(2deg)] lg:[transform-style:preserve-3d]"
             >
               {/* Top Stats Row (3 Metrics) */}
               <div className="grid grid-cols-3 gap-2 pb-3.5 border-b border-slate-100">
@@ -255,7 +251,7 @@ export default function DashboardShowcaseSection() {
               className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 will-change-transform will-change-opacity"
             >
               {/* Pill 1: Data-Driven Campaigns */}
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-[#dbe4ff] text-slate-800 text-xs sm:text-[13px] font-semibold border border-blue-200/70 shadow-xs transition-all duration-200 hover:bg-[#d0dcff] hover:scale-[1.02] cursor-default whitespace-nowrap">
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-[#dbe4ff] text-slate-800 text-[11px] sm:text-xs md:text-[13px] font-semibold border border-blue-200/70 shadow-xs transition-all duration-200 hover:bg-[#d0dcff] hover:scale-[1.02] cursor-default whitespace-normal sm:whitespace-nowrap">
                 {/* 3 Stacked Layers Icon */}
                 <svg className="w-4 h-4 text-[#1541e0] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -266,7 +262,7 @@ export default function DashboardShowcaseSection() {
               </div>
 
               {/* Pill 2: Measurable Business Outcomes */}
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-[#dbe4ff] text-slate-800 text-xs sm:text-[13px] font-semibold border border-blue-200/70 shadow-xs transition-all duration-200 hover:bg-[#d0dcff] hover:scale-[1.02] cursor-default whitespace-nowrap">
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-[#dbe4ff] text-slate-800 text-[11px] sm:text-xs md:text-[13px] font-semibold border border-blue-200/70 shadow-xs transition-all duration-200 hover:bg-[#d0dcff] hover:scale-[1.02] cursor-default whitespace-normal sm:whitespace-nowrap">
                 {/* Concentric Bullseye Target Icon */}
                 <svg className="w-4 h-4 text-[#1541e0] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                   <circle cx="12" cy="12" r="10" />
@@ -277,7 +273,7 @@ export default function DashboardShowcaseSection() {
               </div>
 
               {/* Pill 3: Google Ads Certified Agency */}
-              <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-[#dbe4ff] text-slate-800 text-xs sm:text-[13px] font-semibold border border-blue-200/70 shadow-xs transition-all duration-200 hover:bg-[#d0dcff] hover:scale-[1.02] cursor-default whitespace-nowrap">
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-[#dbe4ff] text-slate-800 text-[11px] sm:text-xs md:text-[13px] font-semibold border border-blue-200/70 shadow-xs transition-all duration-200 hover:bg-[#d0dcff] hover:scale-[1.02] cursor-default whitespace-normal sm:whitespace-nowrap">
                 {/* Badge Checkmark Icon */}
                 <svg className="w-4 h-4 text-[#1541e0] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" />

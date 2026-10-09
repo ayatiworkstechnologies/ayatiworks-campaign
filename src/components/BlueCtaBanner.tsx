@@ -14,7 +14,9 @@ export default function BlueCtaBanner() {
   const ctaBtnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReducedMotion) return;
 
     gsap.registerPlugin(ScrollTrigger);
@@ -30,17 +32,32 @@ export default function BlueCtaBanner() {
       });
 
       if (headlineRef.current) {
-        tl.fromTo(headlineRef.current, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.75, ease: "power3.out" });
+        tl.fromTo(
+          headlineRef.current,
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.75, ease: "power3.out" },
+        );
       }
       if (descRef.current) {
-        tl.fromTo(descRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55 }, "-=0.4");
+        tl.fromTo(
+          descRef.current,
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.55 },
+          "-=0.4",
+        );
       }
       if (ctaBtnRef.current) {
         tl.fromTo(
           ctaBtnRef.current,
           { opacity: 0, scale: 0.94, y: 10 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.65, ease: "back.out(1.15)" },
-          "-=0.35"
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.65,
+            ease: "back.out(1.15)",
+          },
+          "-=0.35",
         );
       }
     }, bannerRef);
@@ -79,32 +96,35 @@ export default function BlueCtaBanner() {
               ref={descRef}
               className="text-xs sm:text-sm md:text-[15px] text-blue-100/90 leading-relaxed max-w-xl font-normal will-change-transform will-change-opacity pt-1"
             >
-              Find out what&apos;s limiting your advertising performance and where your next growth opportunities could come from.
+              Find out what&apos;s limiting your advertising performance and
+              where your next growth opportunities could come from.
             </p>
           </div>
 
           {/* Right Action Button matching reference screenshot with react-icons */}
           <div
             ref={ctaBtnRef}
-            className="lg:col-span-5 flex flex-col items-start lg:items-end justify-center will-change-transform will-change-opacity"
+            className="lg:col-span-5 flex flex-col items-start lg:items-end justify-center w-full will-change-transform will-change-opacity"
           >
-            <button
-              type="button"
-              onClick={handleCtaClick}
-              className="bg-white hover:bg-slate-50 text-[#1541e0] font-black text-xs sm:text-[13px] tracking-wider uppercase pl-5 sm:pl-6 pr-2.5 sm:pr-3 py-3 rounded-none sm:rounded-xs transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-[1.01] flex items-center justify-between gap-4 group cursor-pointer active:scale-[0.99]"
-            >
-              <span className="text-left whitespace-nowrap">
-                GET YOUR FREE 30-MIN AD ACCOUNT GROWTH AUDIT
-              </span>
-              <span className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xs bg-[#ea580c] text-white flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform duration-200 shadow-xs">
-                <HiArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" />
-              </span>
-            </button>
+            <div className="w-full sm:w-auto flex flex-col items-start">
+              <button
+                type="button"
+                onClick={handleCtaClick}
+                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#1541e0] font-black text-[11px] sm:text-xs md:text-[13px] tracking-wider uppercase pl-4 sm:pl-6 pr-2 sm:pr-3 py-3 rounded-none sm:rounded-xs transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-[1.01] flex items-center justify-between gap-3 sm:gap-4 group cursor-pointer active:scale-[0.99]"
+              >
+                <span className="text-left whitespace-normal sm:whitespace-nowrap leading-tight">
+                  GET YOUR FREE 30-MIN AD ACCOUNT GROWTH AUDIT
+                </span>
+                <span className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xs bg-[#ea580c] text-white flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform duration-200 shadow-xs">
+                  <HiArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" />
+                </span>
+              </button>
 
-            {/* Shield and Subtext */}
-            <div className="flex items-center gap-1.5 mt-3 text-xs text-blue-100/90 font-normal">
-              <HiOutlineShieldCheck className="w-4 h-4 text-blue-100 shrink-0" />
-              <span>A fresh perspective. No obligation.</span>
+              {/* Shield and Subtext aligned to left of button */}
+              <div className="flex items-center gap-1.5 mt-3 text-[11px] sm:text-xs text-blue-100/90 font-normal">
+                <HiOutlineShieldCheck className="w-4 h-4 text-blue-100 shrink-0" />
+                <span>A fresh perspective. No obligation.</span>
+              </div>
             </div>
           </div>
         </div>

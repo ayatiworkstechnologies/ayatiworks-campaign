@@ -14,7 +14,9 @@ export default function FaqSection() {
   const rightCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReducedMotion) return;
 
     gsap.registerPlugin(ScrollTrigger);
@@ -34,7 +36,13 @@ export default function FaqSection() {
         tl.fromTo(
           items,
           { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 0.65, stagger: 0.08, ease: "power2.out" }
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
         );
       }
 
@@ -43,7 +51,7 @@ export default function FaqSection() {
           rightCardRef.current,
           { opacity: 0, y: 24, scale: 0.98 },
           { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power2.out" },
-          "-=0.4"
+          "-=0.4",
         );
       }
     }, sectionRef);
@@ -88,7 +96,10 @@ export default function FaqSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
           {/* Left Column: Dotted Boxed Accordion Items with Smooth Collapse/Expand */}
-          <div ref={accordionListRef} className="lg:col-span-7 space-y-3.5 sm:space-y-4">
+          <div
+            ref={accordionListRef}
+            className="lg:col-span-7 space-y-3.5 sm:space-y-4"
+          >
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               const contentId = `faq-content-${index}`;
@@ -145,7 +156,10 @@ export default function FaqSection() {
           </div>
 
           {/* Right Column: Dotted Help Box & Tag */}
-          <div ref={rightCardRef} className="lg:col-span-5 space-y-4 will-change-transform will-change-opacity">
+          <div
+            ref={rightCardRef}
+            className="lg:col-span-5 space-y-4 will-change-transform will-change-opacity"
+          >
             {/* Tag */}
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold tracking-wider text-[#ea580c] uppercase">
@@ -154,7 +168,7 @@ export default function FaqSection() {
             </div>
 
             {/* Help / Contact Card with Dotted Border */}
-            <div className="border border-dotted border-slate-300/90 bg-white p-8 sm:p-12 flex flex-col items-center justify-center text-center hover:border-slate-400 transition-colors duration-200 group">
+            <div className=" bg-white p-8 sm:p-12 flex flex-col items-center justify-center text-center hover:border-slate-400 transition-colors duration-200 group">
               {/* Chat Bubble Icon with subtle hover bounce */}
               <div className="w-10 h-10 flex items-center justify-center text-slate-900 group-hover:-translate-y-1 transition-transform duration-200">
                 <svg

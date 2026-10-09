@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { HiArrowUpRight } from "react-icons/hi2";
 
 export default function PlatformsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -205,8 +206,8 @@ export default function PlatformsSection() {
                     <span className="text-xs font-bold text-[#0040ff] tracking-tight">
                       {platform.category}
                     </span>
-                    <span className="text-sm font-bold text-[#0040ff] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200">
-                      ↗
+                    <span className="text-[#0040ff] flex items-center justify-center shrink-0">
+                      <HiArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
                     </span>
                   </div>
 

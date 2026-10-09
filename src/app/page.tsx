@@ -24,11 +24,12 @@ const structuredData = {
   logo: "https://www.ayatiworks.com/ayatiworks_logo.svg",
   description: "Ayatiworks is a performance marketing agency specializing in Google Ads, Meta Ads, programmatic advertising, and conversion optimization.",
   sameAs: [
-    "https://facebook.com/ayatiworks",
-    "https://instagram.com/ayatiworks",
     "https://linkedin.com/company/ayatiworks",
+    "https://www.facebook.com/ayatiworkstechnologies",
+    "https://instagram.com/ayatiworks/",
     "https://youtube.com/@ayatiworks",
     "https://twitter.com/Ayatiworks1",
+    "https://www.threads.net/@ayatiworks?hl=en",
   ],
   serviceType: ["Google Ads management", "Meta Ads management", "Programmatic advertising", "Conversion rate optimization"],
 };

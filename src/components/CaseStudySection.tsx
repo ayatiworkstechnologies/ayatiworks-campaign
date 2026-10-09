@@ -138,59 +138,59 @@ export default function CaseStudySection() {
           >
             <div className="divide-y divide-slate-200/80 border-b border-slate-200/80">
               {/* Stat 1 */}
-              <div className="group flex items-center justify-between py-6 transition-colors cursor-default">
-                <div className="w-28 sm:w-36 shrink-0">
+              <div className="group flex items-center justify-between py-5 sm:py-6 transition-colors cursor-default">
+                <div className="w-20 sm:w-28 md:w-36 shrink-0">
                   <AnimatedCounter
                     value={7.9}
                     decimals={1}
                     suffix="%"
                     duration={1.2}
-                    className="text-4xl sm:text-5xl font-black text-[#1541e0] tracking-tight group-hover:scale-105 transition-transform duration-200 inline-block"
+                    className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1541e0] tracking-tight group-hover:scale-105 transition-transform duration-200 inline-block"
                   />
                 </div>
-                <span className="text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium flex-1 pl-4 sm:pl-6 group-hover:text-slate-900 transition-colors">
+                <span className="text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium flex-1 pl-3 sm:pl-6 group-hover:text-slate-900 transition-colors leading-snug">
                   Google Ads CTR
                 </span>
-                <span className="text-[#ea580c] pl-4 flex items-center justify-center shrink-0">
-                  <HiArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
+                <span className="text-[#ea580c] pl-2 sm:pl-4 flex items-center justify-center shrink-0">
+                  <HiArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
                 </span>
               </div>
 
               {/* Stat 2 */}
-              <div className="group flex items-center justify-between py-6 transition-colors cursor-default">
-                <div className="w-28 sm:w-36 shrink-0">
+              <div className="group flex items-center justify-between py-5 sm:py-6 transition-colors cursor-default">
+                <div className="w-20 sm:w-28 md:w-36 shrink-0">
                   <AnimatedCounter
                     value={23}
                     decimals={0}
                     suffix="%"
                     duration={1.3}
-                    className="text-4xl sm:text-5xl font-black text-[#1541e0] tracking-tight group-hover:scale-105 transition-transform duration-200 inline-block"
+                    className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1541e0] tracking-tight group-hover:scale-105 transition-transform duration-200 inline-block"
                   />
                 </div>
-                <span className="text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium flex-1 pl-4 sm:pl-6 group-hover:text-slate-900 transition-colors">
+                <span className="text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium flex-1 pl-3 sm:pl-6 group-hover:text-slate-900 transition-colors leading-snug">
                   Search CPA improvement MoM
                 </span>
-                <span className="text-[#ea580c] pl-4 flex items-center justify-center shrink-0">
-                  <HiArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
+                <span className="text-[#ea580c] pl-2 sm:pl-4 flex items-center justify-center shrink-0">
+                  <HiArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
                 </span>
               </div>
 
               {/* Stat 3 */}
-              <div className="group flex items-center justify-between py-6 transition-colors cursor-default">
-                <div className="w-28 sm:w-36 shrink-0">
+              <div className="group flex items-center justify-between py-5 sm:py-6 transition-colors cursor-default">
+                <div className="w-20 sm:w-28 md:w-36 shrink-0">
                   <AnimatedCounter
                     value={40}
                     decimals={0}
                     suffix="%"
                     duration={1.4}
-                    className="text-4xl sm:text-5xl font-black text-[#1541e0] tracking-tight group-hover:scale-105 transition-transform duration-200 inline-block"
+                    className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1541e0] tracking-tight group-hover:scale-105 transition-transform duration-200 inline-block"
                   />
                 </div>
-                <span className="text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium flex-1 pl-4 sm:pl-6 group-hover:text-slate-900 transition-colors">
+                <span className="text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium flex-1 pl-3 sm:pl-6 group-hover:text-slate-900 transition-colors leading-snug">
                   Search CPA improvement QoQ
                 </span>
-                <span className="text-[#ea580c] pl-4 flex items-center justify-center shrink-0">
-                  <HiArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
+                <span className="text-[#ea580c] pl-2 sm:pl-4 flex items-center justify-center shrink-0">
+                  <HiArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
                 </span>
               </div>
             </div>
