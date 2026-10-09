@@ -69,25 +69,67 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
       return;
     }
 
-    const endpoint = process.env.NEXT_PUBLIC_AUDIT_FORM_ENDPOINT;
-    if (!endpoint) {
-      setErrorMessage("Audit submissions are not configured yet. Please contact Ayatiworks directly.");
-      return;
-    }
-
     setIsSubmitting(true);
+    const payload = {
+      data: {
+        fullname: formData.fullName.trim(),
+        workemail: formData.workEmail.trim(),
+        phonenumber: formData.phoneNumber.trim(),
+        websiteurl: formData.websiteUrl.trim(),
+        adspend: formData.adSpend,
+        goal: formData.goal,
+        agreetoterms: formData.agreeToTerms ? "true" : "false",
+      },
+    };
+
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) throw new Error("Submission failed");
+      // Direct call to Ayatiworks Campaign Form API
+      const response = await fetch(
+        "https://api.ayatiworks.com/api/v1/public/ayatiwork/campain_form/records",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": "YOUR_API_KEY",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        // Fallback to internal API route in case of browser-level CORS policies
+        const serverResponse = await fetch("/api/audit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!serverResponse.ok) {
+          throw new Error("Failed to submit request.");
+        }
+      }
+
       setIsSubmitting(false);
       setIsSuccess(true);
     } catch {
-      setIsSubmitting(false);
-      setErrorMessage("We could not send your request. Please try again or contact Ayatiworks directly.");
+      // In case of CORS error in the browser, fallback seamlessly to server route
+      try {
+        const serverResponse = await fetch("/api/audit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!serverResponse.ok) {
+          throw new Error("Server submission failed.");
+        }
+
+        setIsSubmitting(false);
+        setIsSuccess(true);
+      } catch {
+        setIsSubmitting(false);
+        setErrorMessage("We could not submit your request. Please try again or contact Ayatiworks directly.");
+      }
     }
   };
 
@@ -161,6 +203,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
                 type="text"
                 id="fullName"
                 name="fullName"
+                autoComplete="name"
                 required
                 value={formData.fullName}
                 onChange={handleChange}
@@ -181,6 +224,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
                 type="email"
                 id="workEmail"
                 name="workEmail"
+                autoComplete="email"
                 required
                 value={formData.workEmail}
                 onChange={handleChange}
@@ -201,6 +245,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
                 type="tel"
                 id="phoneNumber"
                 name="phoneNumber"
+                autoComplete="tel"
                 required
                 value={formData.phoneNumber}
                 onChange={handleChange}
@@ -221,6 +266,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
                 type="url"
                 id="websiteUrl"
                 name="websiteUrl"
+                autoComplete="url"
                 required
                 value={formData.websiteUrl}
                 onChange={handleChange}
