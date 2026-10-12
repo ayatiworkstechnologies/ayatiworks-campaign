@@ -11,7 +11,7 @@ import BlueCtaBanner from "@/components/BlueCtaBanner";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
-import AuditForm from "@/components/growth/AuditForm";
+
 
 export const metadata: Metadata = {
   alternates: { canonical: "/performance-marketing-agency" },
@@ -43,7 +43,7 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <AuditForm/>
+        
         <DashboardShowcaseSection />
         <CoreChallengeSection />
         <ThreeStepProcessSection />
