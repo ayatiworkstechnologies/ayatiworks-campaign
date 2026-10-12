@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiCheck, FiArrowRight } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
 
 const ecomSteps = [
   {
@@ -19,7 +19,7 @@ const ecomSteps = [
       "High-intent audience & dynamic catalog targeting",
       "Real-time budget efficiency and bid optimization",
     ],
-    avatar: "/audit-sq.png",
+    image: "/ecom-step-acquire.jpg",
   },
   {
     id: "convert",
@@ -33,7 +33,7 @@ const ecomSteps = [
       "Optimized Average Order Value (AOV)",
       "Zero-friction mobile checkout experience",
     ],
-    avatar: "/optimise-sq.png",
+    image: "/ecom-step-convert.jpg",
   },
   {
     id: "retain",
@@ -47,7 +47,7 @@ const ecomSteps = [
       "Accelerated Customer Lifetime Value (LTV)",
       "Automated win-back & VIP customer cohorts",
     ],
-    avatar: "/scale-sq.png",
+    image: "/ecom-step-retain.jpg",
   },
 ];
 
@@ -149,7 +149,7 @@ export default function EcommerceProcessSection() {
         {/* Content Section: Left Active Card, Right 3 Clickable Circle Steps */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* Left Column: Active Step Detail Card */}
+          {/* Left Column: Active Step Detail Card with Image Preview */}
           <div className="lg:col-span-7">
             <div
               ref={cardContentRef}
@@ -164,13 +164,25 @@ export default function EcommerceProcessSection() {
                 </span>
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight pt-1">
-                {current.title}
-              </h3>
+              <div className="flex flex-col sm:flex-row gap-5 items-start">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border border-slate-100 shadow-sm relative bg-slate-50">
+                  <Image
+                    src={current.image}
+                    alt={current.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-              <p className="mt-3 text-xs sm:text-sm md:text-[15px] text-slate-600 leading-relaxed font-normal">
-                {current.description}
-              </p>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+                    {current.title}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {current.description}
+                  </p>
+                </div>
+              </div>
 
               {/* Bullet / Focus checklist */}
               <div className="mt-6 pt-5 border-t border-slate-100 space-y-2.5">
@@ -206,7 +218,7 @@ export default function EcommerceProcessSection() {
             </div>
           </div>
 
-          {/* Right Column: 3 Process Circles matching design */}
+          {/* Right Column: 3 Process Circles matching design image */}
           <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-row items-center justify-center gap-6 sm:gap-8">
             <div ref={circlesWrapRef} className="flex items-center justify-center gap-4 sm:gap-6">
               {ecomSteps.map((step, idx) => {
@@ -218,21 +230,20 @@ export default function EcommerceProcessSection() {
                     onClick={() => handleStepChange(idx)}
                     className="flex flex-col items-center group cursor-pointer text-center focus:outline-none"
                   >
-                    {/* Circle Image Wrapper */}
+                    {/* Circle Image Wrapper with Real Illustration */}
                     <div
-                      className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1.5 transition-all duration-300 flex items-center justify-center shadow-lg relative ${
+                      className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full p-1.5 transition-all duration-300 flex items-center justify-center shadow-lg relative ${
                         isActive
                           ? "ring-4 ring-[#1541e0] ring-offset-2 scale-105 shadow-blue-500/30 bg-blue-50"
                           : "ring-1 ring-slate-200 hover:ring-slate-300 hover:scale-102 bg-white"
                       }`}
                     >
-                      <div className="w-full h-full rounded-full overflow-hidden bg-slate-100 relative flex items-center justify-center">
+                      <div className="w-full h-full rounded-full overflow-hidden bg-slate-100 relative flex items-center justify-center border border-slate-100">
                         <Image
-                          src={step.avatar}
+                          src={step.image}
                           alt={step.label}
-                          width={96}
-                          height={96}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                       </div>
 

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HiOutlineLightningBolt } from "react-icons/hi";
-import { FiTrendingUp, FiShoppingBag, FiCreditCard, FiPackage, FiCheckCircle } from "react-icons/fi";
-import { BsStars } from "react-icons/bs";
+import { FiTrendingUp, FiCheckCircle, FiShoppingBag, FiTruck, FiCreditCard } from "react-icons/fi";
 
 export default function EcommerceShowcaseSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -73,7 +73,7 @@ export default function EcommerceShowcaseSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/25 to-white py-14 lg:py-22 border-b border-slate-100"
+      className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/25 to-white py-14 lg:py-20 border-b border-slate-100"
     >
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[550px] bg-blue-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -129,207 +129,62 @@ export default function EcommerceShowcaseSection() {
           </div>
         </div>
 
-        {/* Showcase Composition: Laptop Storefront + Floating Parcel & Card + Mobile App */}
+        {/* Showcase Composition with High-Res 3D E-Commerce Visual matching reference */}
         <div
           ref={showcaseWrapRef}
           className="mt-12 sm:mt-16 max-w-5xl mx-auto relative will-change-transform will-change-opacity"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Main Visual Display Card */}
+          <div className="relative rounded-3xl overflow-hidden bg-white/70 backdrop-blur-md p-2 sm:p-4 border border-slate-200/80 shadow-2xl shadow-blue-500/10">
             
-            {/* Left: Laptop Screen Mockup with Storefront & Dashboard (7 Cols) */}
-            <div className="lg:col-span-8 relative">
-              {/* Laptop Shell */}
-              <div className="bg-slate-900 rounded-2xl p-2.5 sm:p-3.5 shadow-2xl shadow-blue-900/20 border border-slate-800 text-left">
-                {/* Laptop Camera dot */}
-                <div className="flex items-center justify-between pb-2 px-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
-                  </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-700 mx-auto" />
-                  <span className="text-[10px] text-slate-400 font-mono">ayatiworks-store.preview</span>
-                </div>
-
-                {/* Laptop Inner Screen */}
-                <div className="bg-white rounded-xl p-3.5 sm:p-4 text-slate-900 overflow-hidden border border-slate-100">
-                  {/* Top Bar */}
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-md bg-[#1541e0] text-white flex items-center justify-center font-black text-xs">
-                        A
-                      </span>
-                      <span className="text-xs font-bold tracking-tight text-slate-900">
-                        VELOCITY <span className="text-[#1541e0]">D2C</span>
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3 text-xs text-slate-500">
-                      <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 font-semibold text-[10px]">
-                        ● Live Store • ROAS 4.8x
-                      </span>
-                      <span className="flex items-center gap-1 font-semibold text-slate-700">
-                        <FiShoppingBag className="w-3.5 h-3.5 text-[#1541e0]" /> Cart (3)
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Top Metric Strip */}
-                  <div className="grid grid-cols-3 gap-2 py-3 border-b border-slate-100 text-left">
-                    <div className="bg-slate-50/80 p-2 rounded-lg border border-slate-100">
-                      <span className="text-[10px] text-slate-400 block font-medium">Monthly Revenue</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">₹24,85,920</span>
-                      <span className="text-[9px] font-semibold text-emerald-600">↑ +38.4% MoM</span>
-                    </div>
-                    <div className="bg-slate-50/80 p-2 rounded-lg border border-slate-100">
-                      <span className="text-[10px] text-slate-400 block font-medium">Blended ROAS</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-[#1541e0]">4.82x</span>
-                      <span className="text-[9px] font-semibold text-emerald-600">↑ 1.4x Target</span>
-                    </div>
-                    <div className="bg-slate-50/80 p-2 rounded-lg border border-slate-100">
-                      <span className="text-[10px] text-slate-400 block font-medium">Repeat Orders</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">32.6%</span>
-                      <span className="text-[9px] font-semibold text-emerald-600">↑ +9.1% Retention</span>
-                    </div>
-                  </div>
-
-                  {/* Store Product Grid Mockup */}
-                  <div className="pt-3">
-                    <div className="flex items-center justify-between pb-2">
-                      <span className="text-xs font-bold text-slate-800">Best Performing SKUs</span>
-                      <span className="text-[10px] text-blue-600 font-semibold">Real-Time Attribution ➔</span>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                      {/* Product 1 */}
-                      <div className="bg-slate-50 rounded-lg p-2 border border-slate-100 hover:border-blue-200 transition-colors">
-                        <div className="h-14 bg-gradient-to-tr from-blue-100 via-indigo-50 to-white rounded flex items-center justify-center text-xl">
-                          🎧
-                        </div>
-                        <p className="text-[11px] font-bold text-slate-800 truncate pt-1.5">Pro Noise-Cancelling</p>
-                        <div className="flex items-center justify-between pt-0.5">
-                          <span className="text-[10px] font-extrabold text-slate-900">₹3,499</span>
-                          <span className="text-[9px] text-emerald-600 font-bold">ROAS 5.2x</span>
-                        </div>
-                      </div>
-
-                      {/* Product 2 */}
-                      <div className="bg-slate-50 rounded-lg p-2 border border-slate-100 hover:border-blue-200 transition-colors">
-                        <div className="h-14 bg-gradient-to-tr from-emerald-100 via-teal-50 to-white rounded flex items-center justify-center text-xl">
-                          🧴
-                        </div>
-                        <p className="text-[11px] font-bold text-slate-800 truncate pt-1.5">Glow Hydration Serum</p>
-                        <div className="flex items-center justify-between pt-0.5">
-                          <span className="text-[10px] font-extrabold text-slate-900">₹1,299</span>
-                          <span className="text-[9px] text-emerald-600 font-bold">ROAS 4.6x</span>
-                        </div>
-                      </div>
-
-                      {/* Product 3 */}
-                      <div className="bg-slate-50 rounded-lg p-2 border border-slate-100 hover:border-blue-200 transition-colors">
-                        <div className="h-14 bg-gradient-to-tr from-orange-100 via-amber-50 to-white rounded flex items-center justify-center text-xl">
-                          👟
-                        </div>
-                        <p className="text-[11px] font-bold text-slate-800 truncate pt-1.5">Air Kinetic Sneaker</p>
-                        <div className="flex items-center justify-between pt-0.5">
-                          <span className="text-[10px] font-extrabold text-slate-900">₹4,999</span>
-                          <span className="text-[9px] text-emerald-600 font-bold">ROAS 4.9x</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {/* Top Metric Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pb-3 px-2 text-left">
+              <div className="bg-white p-2.5 sm:p-3 rounded-xl border border-slate-100 shadow-2xs">
+                <span className="text-[10px] text-slate-400 block font-medium">Monthly D2C Revenue</span>
+                <span className="text-xs sm:text-sm font-extrabold text-slate-900">₹24,85,920</span>
+                <span className="text-[9px] font-semibold text-emerald-600">↑ +38.4% MoM</span>
               </div>
-
-              {/* Laptop Base Stand */}
-              <div className="w-1/2 h-2.5 bg-slate-300 rounded-b-xl mx-auto shadow-md" />
-
-              {/* Floating 3D Package Badge on bottom left */}
-              <div className="absolute -bottom-4 -left-4 sm:-left-6 bg-white border border-slate-200 rounded-xl p-2.5 shadow-xl flex items-center gap-2.5 animate-float-slow">
-                <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg border border-amber-200">
-                  <FiPackage className="w-5 h-5 text-amber-600" />
-                </div>
-                <div className="text-left">
-                  <span className="text-[10px] text-slate-400 font-medium block">Fulfilled Orders</span>
-                  <span className="text-xs font-black text-slate-900 block">4,280 Orders</span>
-                </div>
+              <div className="bg-white p-2.5 sm:p-3 rounded-xl border border-slate-100 shadow-2xs">
+                <span className="text-[10px] text-slate-400 block font-medium">Blended ROAS</span>
+                <span className="text-xs sm:text-sm font-extrabold text-[#1541e0]">4.82x</span>
+                <span className="text-[9px] font-semibold text-emerald-600">↑ High Scalability</span>
+              </div>
+              <div className="bg-white p-2.5 sm:p-3 rounded-xl border border-slate-100 shadow-2xs">
+                <span className="text-[10px] text-slate-400 block font-medium">Delivered Orders</span>
+                <span className="text-xs sm:text-sm font-extrabold text-slate-900">4,280 Orders</span>
+                <span className="text-[9px] font-semibold text-emerald-600">↑ 98.6% Fulfillment</span>
+              </div>
+              <div className="bg-white p-2.5 sm:p-3 rounded-xl border border-slate-100 shadow-2xs">
+                <span className="text-[10px] text-slate-400 block font-medium">Repeat Purchase Rate</span>
+                <span className="text-xs sm:text-sm font-extrabold text-slate-900">32.6%</span>
+                <span className="text-[9px] font-semibold text-emerald-600">↑ High LTV Cohort</span>
               </div>
             </div>
 
-            {/* Right: Floating Credit Card + Mobile D2C Store Mockup (4 Cols) */}
-            <div className="lg:col-span-4 relative flex flex-col items-center">
-              
-              {/* Floating Premium Card (Top Right) */}
-              <div className="w-full max-w-[240px] bg-gradient-to-tr from-[#1541e0] via-[#2563eb] to-[#3b82f6] text-white p-3.5 rounded-2xl shadow-xl shadow-blue-500/20 text-left border border-blue-400/30 transform -rotate-3 hover:rotate-0 transition-transform duration-300 mb-3 animate-float-reverse">
-                <div className="flex items-center justify-between pb-3">
-                  <span className="text-[10px] font-bold tracking-wider text-blue-200">AYATI COMMERCE</span>
-                  <FiCreditCard className="w-4 h-4 text-white" />
-                </div>
-                <div className="w-6 h-4 rounded bg-amber-300/80 mb-2 border border-amber-200" />
-                <span className="font-mono text-xs tracking-widest text-white/90 block">•••• •••• •••• 8842</span>
-                <div className="flex items-center justify-between pt-2 text-[9px] text-blue-100">
-                  <span>FAST CHECKOUT</span>
-                  <span className="font-bold text-white">ACTIVE</span>
-                </div>
+            {/* Generated High-Resolution 3D Image */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/9] w-full border border-slate-100 shadow-inner group">
+              <Image
+                src="/ecom-showcase-3d.jpg"
+                alt="E-commerce and D2C Growth Agency Engine - Ayatiworks"
+                fill
+                priority
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+
+              {/* Floating Badge 1: Top Left */}
+              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-xl px-3 py-1.5 shadow-lg flex items-center gap-2 animate-float-slow">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[11px] font-bold text-slate-800">Omnichannel Scale Engine</span>
               </div>
 
-              {/* Mobile Phone Mockup */}
-              <div className="w-full max-w-[260px] bg-slate-900 p-2.5 rounded-[36px] shadow-2xl border-4 border-slate-800 text-left">
-                {/* Dynamic Island / Notch */}
-                <div className="w-20 h-4 bg-slate-950 rounded-full mx-auto mb-2" />
-
-                {/* Mobile Screen */}
-                <div className="bg-white rounded-[26px] p-3 text-slate-900 overflow-hidden border border-slate-100">
-                  {/* Sneaker Image Preview */}
-                  <div className="h-32 bg-gradient-to-b from-blue-50 via-slate-50 to-white rounded-xl relative flex items-center justify-center overflow-hidden border border-slate-100">
-                    <span className="text-5xl transform -rotate-12 filter drop-shadow-md">👟</span>
-                    <span className="absolute top-2 left-2 bg-[#ea580c] text-white font-black text-[9px] px-1.5 py-0.5 rounded-md">
-                      BESTSELLER
-                    </span>
-                    <span className="absolute top-2 right-2 bg-white/90 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold shadow-2xs flex items-center gap-0.5">
-                      <BsStars className="w-3 h-3 text-amber-500" /> 4.9
-                    </span>
-                  </div>
-
-                  {/* Product Details */}
-                  <div className="pt-2.5">
-                    <h3 className="text-xs font-black text-slate-900 leading-tight">
-                      HyperPulse Speed Sneaker
-                    </h3>
-                    <p className="text-[10px] text-slate-500 pt-0.5">Full-stack D2C acquisition offer</p>
-
-                    <div className="flex items-baseline gap-1.5 pt-1">
-                      <span className="text-sm font-black text-[#1541e0]">₹2,499</span>
-                      <span className="text-[10px] text-slate-400 line-through">₹4,999</span>
-                      <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 rounded">
-                        50% OFF
-                      </span>
-                    </div>
-
-                    {/* Size Picker */}
-                    <div className="flex items-center gap-1 pt-2">
-                      <span className="w-6 h-6 rounded bg-[#1541e0] text-white text-[10px] font-bold flex items-center justify-center">
-                        7
-                      </span>
-                      <span className="w-6 h-6 rounded bg-slate-100 text-slate-700 text-[10px] font-medium flex items-center justify-center">
-                        8
-                      </span>
-                      <span className="w-6 h-6 rounded bg-slate-100 text-slate-700 text-[10px] font-medium flex items-center justify-center">
-                        9
-                      </span>
-                      <span className="w-6 h-6 rounded bg-slate-100 text-slate-700 text-[10px] font-medium flex items-center justify-center">
-                        10
-                      </span>
-                    </div>
-
-                    {/* Buy Button */}
-                    <button
-                      type="button"
-                      className="mt-2.5 w-full bg-[#1541e0] text-white py-2 rounded-xl font-black text-[11px] uppercase tracking-wide flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/25 cursor-pointer hover:bg-[#0f33b8]"
-                    >
-                      <FiShoppingBag className="w-3.5 h-3.5" />
-                      <span>Instant 1-Click Buy</span>
-                    </button>
-                  </div>
+              {/* Floating Badge 2: Bottom Right */}
+              <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-xl px-3 py-2 shadow-lg flex items-center gap-2.5 animate-float-reverse">
+                <div className="w-7 h-7 rounded-lg bg-[#1541e0] text-white flex items-center justify-center">
+                  <FiShoppingBag className="w-3.5 h-3.5" />
+                </div>
+                <div className="text-left">
+                  <span className="text-[9px] text-slate-400 block leading-tight font-medium">Order Velocity</span>
+                  <span className="text-xs font-black text-slate-900 block leading-tight">350+ Daily Orders</span>
                 </div>
               </div>
             </div>
