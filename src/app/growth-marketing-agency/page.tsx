@@ -15,7 +15,7 @@ import BlueCtaBanner from "@/components/growth/BlueCtaBanner";
 import FaqSection from "@/components/growth/FaqSection";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/performance-marketing-agency" },
+  alternates: { canonical: "/growth-marketing-agency" },
 };
 
 const structuredData = {
