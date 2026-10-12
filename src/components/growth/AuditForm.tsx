@@ -64,30 +64,29 @@ export default function AuditForm({
 
   const [errorMessage, setErrorMessage] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+) => {
+  const target = e.target;
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
+  if (
+    target instanceof HTMLInputElement &&
+    target.type === "checkbox"
+  ) {
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.checked,
+    }));
+  } else {
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.value,
+    }));
+  }
 
-    if (e.target instanceof HTMLInputElement &&
-        e.target.type === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: e.target.checked,
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-
-    setErrorMessage("");
-    setInfoMessage("");
-  };
+  setErrorMessage("");
+  setInfoMessage("");
+};
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>
