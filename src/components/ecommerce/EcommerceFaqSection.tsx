@@ -218,16 +218,9 @@ export default function EcommerceFaqSection() {
           ref={ctaRef}
           className="mt-12 sm:mt-16"
         >
-          <div className="bg-slate-50/70 rounded-3xl p-7 sm:p-10 border border-slate-200/80 text-center flex flex-col items-center justify-center shadow-sm">
+          <div className="flex justify-center items-center w-full">
 
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-              Still have questions?
-            </h3>
-
-            <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-lg leading-relaxed">
-              Talk with our growth experts and discover
-              opportunities to scale your e-commerce revenue.
-            </p>
+           
 
             <button
               type="button"

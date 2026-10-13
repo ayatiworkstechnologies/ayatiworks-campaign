@@ -111,7 +111,7 @@ export default function EcommerceHeroSection() {
                 onClick={handleCtaClick}
                 className="w-full sm:w-auto inline-flex items-center justify-between gap-3 sm:gap-4 bg-[#1541e0] hover:bg-[#0f33b8] text-white font-black text-xs sm:text-[13px] tracking-wider uppercase pl-4 sm:pl-6 pr-2.5 py-3 sm:py-2.5 rounded-none sm:rounded-xs transition-all duration-200 shadow-xl shadow-blue-600/25 hover:shadow-2xl hover:scale-[1.01] cursor-pointer group active:scale-[0.99]"
               >
-                <span className="text-left leading-tight">GET YOUR FREE E-COMMERCE AUDIT</span>
+                <span className="text-left leading-tight">Get My Free E-commerce Audit</span>
                 <span className="w-8 h-8 rounded-xs bg-[#ea580c] text-white flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform duration-200 shadow-xs">
                   <HiArrowRight className="w-4 h-4 text-white" />
                 </span>
