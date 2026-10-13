@@ -301,7 +301,7 @@ export default function BlueCtaBanner() {
                     lg:text-[12px]
                   "
                 >
-                  GET YOUR FREE 90-DAY GROWTH ROADMAP CALL
+                  GET MY FREE GROWTH ROADMAP
                 </span>
 
                 <span

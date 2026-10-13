@@ -4,10 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-/* =========================================================
-   STEP DATA
-========================================================= */
+import { HiCheck } from "react-icons/hi2";
 
 const stepsData = [
   {
@@ -17,22 +14,13 @@ const stepsData = [
     title: "Discover What’s Holding Growth Back",
     description:
       "Analyse marketing channels, target audience, competitive positioning, sales funnel and conversion performance.",
-    focusPrefix: "Focus: ",
-    focusText:
-      "existing performance, funnel challenges, KPIs and opportunities.",
-
-    /*
-      Existing project image reused so you do not get
-      an image-not-found error.
-
-      Later, if you export the exact Diagnose illustration
-      from Figma, replace this with:
-      /diagnose-sq.png
-    */
-    avatar: "/diagnose.png",
+    focusItems: [
+      "Review existing marketing performance",
+      "Identify funnel challenges and conversion gaps",
+      "Define KPIs and growth opportunities",
+    ],
     image: "/diagnose.png",
   },
-
   {
     id: "activate",
     number: "02",
@@ -40,18 +28,13 @@ const stepsData = [
     title: "Turn Strategy Into Action",
     description:
       "Prioritise marketing initiatives, connect audience acquisition, messaging, conversion experiences and lead nurturing.",
-    focusPrefix: "Focus: ",
-    focusText:
-      "campaigns, landing pages, messaging and CRM.",
-
-    /*
-      Current SCALE image can temporarily represent
-      the rocket / activation illustration.
-    */
-    avatar: "/activate.png",
+    focusItems: [
+      "Launch prioritised campaigns",
+      "Improve landing pages and messaging",
+      "Connect lead nurturing and CRM",
+    ],
     image: "/activate.png",
   },
-
   {
     id: "optimise",
     number: "03",
@@ -59,584 +42,217 @@ const stepsData = [
     title: "Build on What Works",
     description:
       "Evaluate early signals, refine activities and direct resources toward initiatives showing the strongest business contribution.",
-    focusPrefix: "Focus: ",
-    focusText:
-      "lead quality, efficiency and pipeline contribution.",
-
-    avatar: "/optimize.png",
+    focusItems: [
+      "Improve lead quality",
+      "Increase marketing efficiency",
+      "Measure pipeline contribution",
+    ],
     image: "/optimize.png",
   },
 ];
 
-/* =========================================================
-   COMPONENT
-========================================================= */
+const AUTO_ADVANCE_MS = 4500;
 
 export default function ThreeStepProcessSection() {
-  const [activeStep, setActiveStep] = useState<number>(0);
-
+  const [activeStep, setActiveStep] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const tagRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const descRef = useRef<HTMLParagraphElement>(null);
-
-  const cardRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const cardContentRef = useRef<HTMLDivElement>(null);
+  const circlesRef = useRef<HTMLDivElement>(null);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
-  const circlesWrapRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
-  /* =======================================================
-     STEP CLICK
-  ======================================================= */
+  useEffect(() => {
+    if (reduceMotion || isPaused) return;
+    const timer = window.setInterval(() => {
+      setActiveStep((current) => (current + 1) % stepsData.length);
+    }, AUTO_ADVANCE_MS);
+    return () => window.clearInterval(timer);
+  }, [reduceMotion, isPaused, activeStep]);
 
-  const handleStepChange = (index: number) => {
-    if (index === activeStep) return;
+  useEffect(() => {
+    if (reduceMotion || !cardContentRef.current) return;
+    const animation = gsap.fromTo(
+      cardContentRef.current,
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }
+    );
+    return () => { animation.kill(); };
+  }, [activeStep, reduceMotion]);
 
-    setActiveStep(index);
-
-    if (cardContentRef.current) {
+  useEffect(() => {
+    if (reduceMotion) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
       gsap.fromTo(
-        cardContentRef.current,
-        {
-          opacity: 0,
-          y: 10,
-        },
+        [headingRef.current, circlesRef.current].filter(Boolean),
+        { opacity: 0, y: 25 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.35,
+          stagger: 0.12,
+          duration: 0.7,
           ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            once: true,
+          },
         }
       );
-    }
-
-    if (circlesWrapRef.current) {
-      gsap.fromTo(
-        circlesWrapRef.current.children,
-        {
-          opacity: 0.55,
-          scale: 0.96,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.4,
-          stagger: 0.08,
-          ease: "power2.out",
-        }
-      );
-    }
-  };
-
-  /* =======================================================
-     ENTRANCE ANIMATION
-  ======================================================= */
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 82%",
-          once: true,
-        },
-
-        defaults: {
-          ease: "power2.out",
-        },
-      });
-
-      /* label */
-      if (tagRef.current) {
-        tl.fromTo(
-          tagRef.current,
-          {
-            opacity: 0,
-            y: 10,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.45,
-          }
-        );
-      }
-
-      /* headline */
-      if (headlineRef.current) {
-        tl.fromTo(
-          headlineRef.current,
-          {
-            opacity: 0,
-            y: 20,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power3.out",
-          },
-          "-=0.25"
-        );
-      }
-
-      /* right description */
-      if (descRef.current) {
-        tl.fromTo(
-          descRef.current,
-          {
-            opacity: 0,
-            y: 14,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-          },
-          "-=0.4"
-        );
-      }
-
-      /* detailed card */
-      if (cardRef.current) {
-        tl.fromTo(
-          cardRef.current,
-          {
-            opacity: 0,
-            x: -25,
-          },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.7,
-          },
-          "-=0.25"
-        );
-      }
-
-      /* circles */
-      if (circlesWrapRef.current) {
-        tl.fromTo(
-          circlesWrapRef.current.children,
-          {
-            opacity: 0,
-            scale: 0.9,
-            y: 18,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.65,
-            stagger: 0.12,
-            ease: "back.out(1.15)",
-          },
-          "-=0.45"
-        );
-      }
     }, sectionRef);
-
     return () => ctx.revert();
-  }, []);
-
-  /* =======================================================
-     CURRENT / OTHER STEPS
-  ======================================================= */
+  }, [reduceMotion]);
 
   const currentStep = stepsData[activeStep];
-
-  const otherSteps = stepsData
-    .map((step, index) => ({
-      ...step,
-      index,
-    }))
-    .filter((step) => step.index !== activeStep);
 
   return (
     <section
       ref={sectionRef}
-      className="
-        relative
-        bg-white
-        py-14
-        sm:py-16
-        lg:py-20
-      "
+      className="relative overflow-hidden bg-white py-14 sm:py-20"
+      aria-labelledby="growth-steps-heading"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setIsPaused(false);
+        }
+      }}
     >
-      <div
-        className="
-          mx-auto
-          max-w-[1450px]
-          px-5
-          sm:px-8
-          lg:px-10
-          xl:px-14
-        "
-      >
-        {/* =================================================
-            SECTION LABEL
-        ================================================= */}
-
-        <div
-          ref={tagRef}
-          className="
-            mb-4
-            flex
-            items-center
-            gap-2
-            will-change-transform
-            will-change-opacity
-          "
-        >
-          <span
-            className="
-              text-[10px]
-              font-bold
-              uppercase
-              tracking-[0.12em]
-              text-[#f26b21]
-              sm:text-[11px]
-            "
-          >
-            02
-          </span>
-
-          <span className="h-[12px] w-px bg-[#f26b21]/70" />
-
-          <span
-            className="
-              text-[10px]
-              font-bold
-              uppercase
-              tracking-[0.1em]
-              text-[#f26b21]
-              sm:text-[11px]
-            "
-          >
-            90-DAY GROWTH PLAN
-          </span>
-        </div>
-
-        {/* =================================================
-            HEADER
-        ================================================= */}
-
-        <div
-          className="
-            mb-11
-            grid
-            grid-cols-1
-            gap-6
-            md:grid-cols-12
-            lg:mb-14
-          "
-        >
-          {/* LEFT HEADING */}
-
-          <div className="md:col-span-6">
-            <h2
-              ref={headlineRef}
-              className="
-                text-[28px]
-                font-black
-                leading-[1.13]
-                tracking-[-0.035em]
-                text-[#171c27]
-                will-change-transform
-                will-change-opacity
-                sm:text-[34px]
-                lg:text-[40px]
-                xl:text-[42px]
-              "
-            >
+      <div className="mx-auto max-w-[1450px] px-5 sm:px-8 lg:px-12">
+        <div ref={headingRef} className="mb-10 grid gap-4 md:grid-cols-2 md:items-end">
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.12em] text-[#f26b21]">
+              02 &nbsp;|&nbsp; 90-DAY GROWTH PLAN
+            </p>
+            <h2 id="growth-steps-heading" className="text-3xl font-black leading-tight tracking-tight text-[#171c27] sm:text-4xl">
               90 Days. Clear Priorities.
-              <br />
-
-              <span className="text-[#1541e0]">
-                Measurable Progress.
-              </span>
+              <span className="block text-[#1541e0]">Measurable Progress.</span>
             </h2>
           </div>
-
-          {/* RIGHT DESCRIPTION */}
-
-          <div
-            className="
-              flex
-              items-start
-              md:col-span-6
-              md:justify-end
-              md:pt-1
-            "
-          >
-            <p
-              ref={descRef}
-              className="
-                max-w-[560px]
-                text-[11px]
-                leading-[1.85]
-                text-[#677080]
-                will-change-transform
-                will-change-opacity
-                sm:text-[12px]
-                lg:text-[13px]
-              "
-            >
-              Business growth requires direction, prioritisation and continuous
-              improvement. Our 90-day framework connects marketing activities
-              with a structured plan.
-            </p>
-          </div>
+          <p className="max-w-[540px] text-sm leading-7 text-[#677080] md:justify-self-end">
+            Business growth requires direction, prioritisation and continuous improvement.
+            Our 90-day framework connects marketing activities with a structured plan.
+          </p>
         </div>
 
-        {/* =================================================
-            PROCESS CONTENT
-        ================================================= */}
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:gap-14">
+          {/* Left: active step details */}
+          <div className="min-w-0 rounded-[24px] border border-[#dce5f3] bg-white p-6 shadow-[0_8px_22px_rgba(15,23,42,0.05)] sm:p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <span className="rounded-full bg-[#e8f1ff] px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-[#1541e0]">
+                Step {activeStep === 0 ? "One" : activeStep === 1 ? "Two" : "Three"}
+              </span>
+              <span className="text-xs font-bold text-[#8ba0c3]">
+                {activeStep + 1} of {stepsData.length}
+              </span>
+            </div>
 
-        <div
-          className="
-            grid
-            grid-cols-1
-            items-center
-            gap-10
-            lg:grid-cols-12
-            lg:gap-12
-            xl:gap-16
-          "
-        >
-          {/* =================================================
-              LEFT ACTIVE CARD
-          ================================================= */}
-
-          <div
-            ref={cardRef}
-            className="
-              relative
-              overflow-hidden
-              rounded-[14px]
-              border
-              border-[#e4e7eb]
-              bg-white
-              px-5
-              py-6
-              shadow-[0_5px_15px_rgba(15,23,42,0.12)]
-              will-change-transform
-              will-change-opacity
-              sm:px-6
-              sm:py-7
-              lg:col-span-5
-              lg:min-h-[255px]
-            "
-          >
-            <div
-              ref={cardContentRef}
-              className="
-                flex
-                min-h-[205px]
-                flex-col
-                justify-center
-              "
-            >
-              {/* STEP LABEL */}
-
-              <div className="mb-5 flex items-center gap-3">
-                <div
-                  className="
-                    relative
-                    h-[42px]
-                    w-[42px]
-                    shrink-0
-                    overflow-hidden
-                    rounded-full
-                    border
-                    border-[#cbd5e1]
-                    bg-[#f5f9ff]
-                    shadow-sm
-                  "
-                >
+            <div ref={cardContentRef} key={currentStep.id}>
+              <div className="flex items-start gap-4">
+                <div className="relative h-[86px] w-[86px] shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:h-[100px] sm:w-[100px]">
                   <Image
-                    src={currentStep.avatar}
-                    alt={currentStep.label}
+                    src={currentStep.image}
+                    alt={`${currentStep.label} illustration`}
                     fill
-                    sizes="42px"
-                    className="object-cover"
+                    sizes="100px"
+                    className="object-contain p-1"
                   />
                 </div>
-
-                <span
-                  className="
-                    text-[11px]
-                    font-extrabold
-                    uppercase
-                    tracking-[0.03em]
-                    text-[#1541e0]
-                    sm:text-[12px]
-                  "
-                >
-                  {currentStep.label}
-                </span>
+                <div className="min-w-0">
+                  <h3 className="text-xl font-extrabold leading-snug tracking-tight text-[#10192e] sm:text-2xl">
+                    {currentStep.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#516584] sm:text-[15px]">
+                    {currentStep.description}
+                  </p>
+                </div>
               </div>
 
-              {/* TITLE */}
-
-              <h3
-                className="
-                  mb-3
-                  text-[18px]
-                  font-extrabold
-                  leading-[1.25]
-                  tracking-[-0.02em]
-                  text-[#20242d]
-                  sm:text-[20px]
-                  lg:text-[21px]
-                "
-              >
-                {currentStep.title}
-              </h3>
-
-              {/* DESCRIPTION */}
-
-              <p
-                className="
-                  mb-5
-                  max-w-[540px]
-                  text-[11px]
-                  leading-[1.8]
-                  text-[#747b87]
-                  sm:text-[12px]
-                "
-              >
-                {currentStep.description}
+              <div className="my-6 h-px bg-[#e6edf5]" />
+              <p className="mb-3 text-xs font-extrabold uppercase tracking-wide text-[#10203e]">
+                Key Growth Focus:
               </p>
+              <ul className="space-y-3">
+                {currentStep.focusItems.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-[#314768]">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ccf7e6] text-[#13966f]">
+                      <HiCheck className="h-3 w-3" />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              {/* FOCUS */}
-
-              <p
-                className="
-                  text-[10px]
-                  leading-[1.7]
-                  text-[#677080]
-                  sm:text-[11px]
-                "
-              >
-                <span className="font-medium text-[#353b46]">
-                  {currentStep.focusPrefix}
-                </span>
-
-                {currentStep.focusText}
-              </p>
+            <div className="mt-9 flex items-center gap-2" aria-label="Step navigation">
+              {stepsData.map((step, index) => (
+                <button
+                  key={step.id}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  aria-label={`Show step ${index + 1}: ${step.label}`}
+                  aria-current={activeStep === index ? "step" : undefined}
+                  className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1541e0] ${
+                    activeStep === index ? "w-8 bg-[#1541e0]" : "w-2.5 bg-[#dfe5ef] hover:bg-[#aab8d3]"
+                  }`}
+                />
+              ))}
             </div>
           </div>
 
-          {/* =================================================
-              RIGHT TWO CIRCLES
-          ================================================= */}
-
-          <div
-            ref={circlesWrapRef}
-            className="
-              flex
-              items-start
-              justify-center
-              gap-5
-              sm:gap-10
-              md:gap-12
-              lg:col-span-7
-              lg:justify-end
-              xl:gap-14
-            "
-          >
-            {otherSteps.map((step) => (
-              <button
-                key={step.id}
-                type="button"
-                onClick={() => handleStepChange(step.index)}
-                className="
-                  group
-                  flex
-                  flex-col
-                  items-center
-                  border-0
-                  bg-transparent
-                  p-0
-                  text-center
-                  outline-none
-                  will-change-transform
-                  will-change-opacity
-                "
-                aria-label={`View ${step.label} step`}
-              >
-                {/* CIRCLE */}
-
-                <div
-                  className="
-                    relative
-                    h-[135px]
-                    w-[135px]
-                    overflow-hidden
-                    rounded-full
-                    border
-                    border-[#d8dadd]
-                    bg-[#fbfbfc]
-                    transition-all
-                    duration-300
-                    group-hover:-translate-y-1
-                    group-hover:border-[#1541e0]/40
-                    group-hover:shadow-[0_8px_24px_rgba(21,65,224,0.10)]
-                    sm:h-[165px]
-                    sm:w-[165px]
-                    lg:h-[180px]
-                    lg:w-[180px]
-                    xl:h-[195px]
-                    xl:w-[195px]
-                  "
+          {/* Right: all 3 stages remain visible */}
+          <div ref={circlesRef} className="flex flex-wrap items-start justify-center gap-3 sm:gap-6 lg:justify-end">
+            {stepsData.map((step, index) => {
+              const selected = index === activeStep;
+              return (
+                <button
+                  key={step.id}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  aria-label={`View ${step.label} step`}
+                  aria-pressed={selected}
+                  className="group flex w-[92px] flex-col items-center gap-3 text-center outline-none sm:w-[125px]"
                 >
-                  <Image
-                    src={step.image}
-                    alt={`${step.label} growth stage`}
-                    fill
-                    sizes="
-                      (max-width: 640px) 135px,
-                      (max-width: 1024px) 165px,
-                      195px
-                    "
-                    className="
-                      object-cover
-                      transition-transform
-                      duration-500
-                      group-hover:scale-[1.03]
-                    "
-                  />
-                </div>
-
-                {/* LABEL */}
-
-                <span
-                  className="
-                    mt-3
-                    text-[11px]
-                    font-black
-                    uppercase
-                    tracking-[0.02em]
-                    text-[#1541e0]
-                    transition-transform
-                    duration-200
-                    group-hover:scale-105
-                    sm:text-[12px]
-                  "
-                >
-                  {step.label}
-                </span>
-              </button>
-            ))}
+                  <span
+                    className={`relative block h-[90px] w-[90px] rounded-full p-[5px] transition-all duration-300 sm:h-[120px] sm:w-[120px] ${
+                      selected
+                        ? "border-[4px] border-[#1541e0] bg-[#eaf1ff] shadow-[0_8px_20px_rgba(21,65,224,0.14)]"
+                        : "border border-[#dce4ef] bg-white shadow-[0_7px_16px_rgba(15,23,42,0.08)] group-hover:-translate-y-1 group-hover:border-[#1541e0]/50"
+                    }`}
+                  >
+                    <span className="relative block h-full w-full overflow-hidden rounded-full bg-[#f7fbff]">
+                      <Image
+                        src={step.image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 640px) 90px, 120px"
+                        className="object-contain p-1"
+                      />
+                    </span>
+                    <span
+                      className={`absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full text-xs font-extrabold text-white ${
+                        selected ? "bg-[#f26b21]" : "bg-[#2c405c]"
+                      }`}
+                    >
+                      {index + 1}
+                    </span>
+                  </span>
+                  <span className={`text-xs font-extrabold uppercase tracking-wide sm:text-sm ${selected ? "text-[#1541e0]" : "text-[#344966]"}`}>
+                    {step.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
