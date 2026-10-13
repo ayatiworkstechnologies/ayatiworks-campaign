@@ -370,7 +370,7 @@ export default function EcommerceAuditForm({ id = "audit-form" }: EcommerceAudit
               disabled={isSubmitting}
               className="w-full inline-flex items-center justify-between bg-white text-[#1541e0] font-black text-xs sm:text-sm tracking-wide uppercase px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg hover:bg-blue-50 transition-all duration-200 shadow-lg cursor-pointer group active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed hover:shadow-xl"
             >
-              <span>{isSubmitting ? "PROCESSING AUDIT..." : "GET MY FREE GROWTH AUDIT"}</span>
+              <span>{isSubmitting ? "PROCESSING AUDIT..." : "Get My Free E-commerce Audit"}</span>
               <span className="w-7 h-7 sm:w-8 sm:h-8 rounded bg-[#ea580c] text-white flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform duration-200 shadow-sm">
                 <HiArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
               </span>
