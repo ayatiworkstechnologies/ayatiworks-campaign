@@ -196,8 +196,8 @@ export default function CaseStudySection() {
             </div>
 
             {/* Footnote */}
-            <p className="mt-8 text-xs text-slate-500 leading-relaxed font-normal">
-              Source-reported results. Verification and client approval required before publication. Results are not a guarantee of future performance.
+            <p className="mt-8 text-xs text-slate-Results are not a guarantee of future performance.500 leading-relaxed font-normal">
+              
             </p>
           </div>
         </div>

@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
-  title: "E-commerce & D2C Growth Agency | Scale Revenue, Not Reach | Ayatiworks",
+  title: "E-commerce & D2C Growth Agency | Scale Revenue, Not Reach",
   description:
     "We build scalable growth engines for modern D2C & e-commerce brands - combining performance marketing, creative strategy, CRO, and lifecycle retention.",
   alternates: { canonical: "/ecommerce-growth-agency" },

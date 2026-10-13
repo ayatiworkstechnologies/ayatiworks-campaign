@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useRef } from "react";
@@ -22,6 +23,17 @@ export default function AnimatedCounter({
 }: AnimatedCounterProps) {
   const containerRef = useRef<HTMLSpanElement>(null);
 
+  // Format numbers using Indian numbering system
+  // 240375 -> 2,40,375
+  // 16666  -> 16,666
+  // 123    -> 123
+  const formatNumber = (num: number): string => {
+    return num.toLocaleString("en-IN", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  };
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -30,8 +42,9 @@ export default function AnimatedCounter({
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Reduced motion: display formatted final value
     if (prefersReducedMotion) {
-      el.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
+      el.textContent = `${prefix}${formatNumber(value)}${suffix}`;
       return;
     }
 
@@ -42,23 +55,27 @@ export default function AnimatedCounter({
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
+
         if (entry.isIntersecting && !hasAnimated) {
           hasAnimated = true;
-          el.textContent = `${prefix}0${suffix}`;
+
+          el.textContent = `${prefix}${formatNumber(0)}${suffix}`;
 
           tween = gsap.to(counterObj, {
             current: value,
             duration,
             ease: "power2.out",
+
+            // Update number during animation
             onUpdate: () => {
-              if (el) {
-                el.textContent = `${prefix}${counterObj.current.toFixed(decimals)}${suffix}`;
-              }
+              el.textContent = `${prefix}${formatNumber(
+                counterObj.current
+              )}${suffix}`;
             },
+
+            // Display exact final formatted number
             onComplete: () => {
-              if (el) {
-                el.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
-              }
+              el.textContent = `${prefix}${formatNumber(value)}${suffix}`;
             },
           });
 
@@ -75,6 +92,7 @@ export default function AnimatedCounter({
 
     return () => {
       observer.disconnect();
+
       if (tween) {
         tween.kill();
       }
@@ -82,8 +100,11 @@ export default function AnimatedCounter({
   }, [value, decimals, prefix, suffix, duration]);
 
   return (
-    <span ref={containerRef} className={`tabular-nums ${className}`}>
-      {`${prefix}${value.toFixed(decimals)}${suffix}`}
+    <span
+      ref={containerRef}
+      className={`tabular-nums ${className}`}
+    >
+      {`${prefix}${formatNumber(value)}${suffix}`}
     </span>
   );
 }

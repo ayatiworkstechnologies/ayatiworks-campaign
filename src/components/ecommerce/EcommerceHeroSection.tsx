@@ -81,12 +81,12 @@ export default function EcommerceHeroSection() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
               <div className="overflow-hidden">
                 <div ref={headlineLine1Ref} className="will-change-transform will-change-opacity">
-                  We Scale E-commerce Brands on
+                  We Scale E-commerce Brands on Revenue,
                 </div>
               </div>
               <div className="overflow-hidden">
                 <div ref={headlineLine2Ref} className="will-change-transform will-change-opacity text-[#1541e0]">
-                  Revenue, Not Reach.
+                  Not Reach.
                 </div>
               </div>
             </h1>

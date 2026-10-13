@@ -184,7 +184,7 @@ export default function EcommerceShowcaseSection() {
                 </div>
                 <div className="text-left">
                   <span className="text-[9px] text-slate-400 block leading-tight font-medium">Order Velocity</span>
-                  <span className="text-xs font-black text-slate-900 block leading-tight">350+ Daily Orders</span>
+                  <span className="text-xs font-black text-slate-900 block leading-tight">143+ Daily Orders</span>
                 </div>
               </div>
             </div>

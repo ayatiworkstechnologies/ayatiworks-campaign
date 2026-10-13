@@ -113,7 +113,7 @@ export default function BlueCtaBanner() {
                 className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#1541e0] font-black text-[11px] sm:text-xs md:text-[13px] tracking-wider uppercase pl-4 sm:pl-6 pr-2 sm:pr-3 py-3 rounded-none sm:rounded-xs transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-[1.01] flex items-center justify-between gap-3 sm:gap-4 group cursor-pointer active:scale-[0.99]"
               >
                 <span className="text-left whitespace-normal sm:whitespace-nowrap leading-tight">
-                  GET YOUR FREE 30-MIN AD ACCOUNT GROWTH AUDIT
+                 Get My Free Growth Audit
                 </span>
                 <span className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xs bg-[#ea580c] text-white flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform duration-200 shadow-xs">
                   <HiArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white" />

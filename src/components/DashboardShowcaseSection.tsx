@@ -159,7 +159,7 @@ export default function DashboardShowcaseSection() {
                     </span>
                   </div>
                   <span className="text-xs sm:text-sm font-bold text-slate-900 block">
-                    $9.68
+                    ₹933
                   </span>
                   <span className="text-[9px] font-semibold text-emerald-600 flex items-center gap-0.5">
                     <span>↓</span>

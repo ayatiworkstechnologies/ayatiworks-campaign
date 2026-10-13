@@ -389,7 +389,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
           {/* Privacy Note */}
           <p className="text-[11px] text-blue-200/90 text-center flex items-center justify-center gap-1.5 pt-1">
             <span>🔒</span>
-            <span>100% confidential. No credit card required. We will never share or sell your information.</span>
+            <span> 100% confidential. No obligation. We will never share or sell your information.</span>
           </p>
         </form>
       )}

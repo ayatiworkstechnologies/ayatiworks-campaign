@@ -407,12 +407,14 @@ export const campaignsData: Record<string, CampaignConfig> = {
         { label: "Conversion - Funnel - Retention", icon: "trending" },
         { label: "Google Ads & Meta Specialists", icon: "check" },
       ],
-      metrics: [
-        { label: "Monthly D2C Revenue", value: "₹24,85,920", sub: "+38.4% MoM" },
-        { label: "Blended ROAS", value: "4.82x", sub: "High Scalability" },
-        { label: "Delivered Orders", value: "4,280 Orders", sub: "98.6% Fulfillment" },
-        { label: "Repeat Purchase Rate", value: "32.6%", sub: "High LTV Cohort" },
-      ],
+     
+metrics: [
+  { label: "Monthly D2C Revenue", value: "₹24,85,920", sub: "+38.4% MoM" },
+  { label: "Blended ROAS", value: "4.82x", sub: "High Scalability" },
+  { label: "Delivered Orders (Monthly)", value: "4,280 Orders", sub: "98.6% Fulfillment" },
+  { label: "Repeat Purchase Rate", value: "32.6%", sub: "High LTV Cohort" },
+],
+
       imageSrc: "/ecom-showcase-3d.jpg",
       imageAlt: "E-commerce and D2C Growth Agency Engine - Ayatiworks",
       floatingBadgeTop: "Omnichannel Scale Engine",
