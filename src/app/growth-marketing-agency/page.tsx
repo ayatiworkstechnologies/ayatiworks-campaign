@@ -14,9 +14,16 @@ import CaseStudySection from "@/components/growth/CaseStudySection";
 import BlueCtaBanner from "@/components/growth/BlueCtaBanner";
 import FaqSection from "@/components/growth/FaqSection";
 
+
 export const metadata: Metadata = {
-  alternates: { canonical: "/growth-marketing-agency" },
+  title: "Growth Marketing Agency | Ayatiworks",
+  description:
+    "Ayatiworks is a growth marketing agency helping businesses scale through performance marketing, lead generation, conversion optimization, and revenue-driven strategies.",
+  alternates: {
+    canonical: "/growth-marketing-agency",
+  },
 };
+
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -24,7 +31,7 @@ const structuredData = {
   name: "Ayatiworks",
   url: "https://www.ayatiworks.com/performance-marketing-agency",
   logo: "https://www.ayatiworks.com/ayatiworks_logo.svg",
-  description: "Ayatiworks is a performance marketing agency specializing in Google Ads, Meta Ads, programmatic advertising, and conversion optimization.",
+  description:   "Ayatiworks is a growth marketing agency specializing in performance marketing, lead generation, paid advertising, conversion optimization, and revenue growth.",
   sameAs: [
     "https://linkedin.com/company/ayatiworks",
     "https://www.facebook.com/ayatiworkstechnologies",
