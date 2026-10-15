@@ -324,7 +324,7 @@ export default function CaseStudySection() {
                 lg:text-[34px]
               "
             >
-              Turning Integrated Marketing
+               Turning Integrated Marketing Into Business Growth.
             </h3>
 
             <h4
@@ -531,8 +531,7 @@ export default function CaseStudySection() {
                 sm:text-[10px]
               "
             >
-              Client-requested B2B/SaaS pipeline case study, pipeline/revenue
-              figures and an approved reporting dashboard are outstanding.
+              
             </p>
           </div>
         </div>

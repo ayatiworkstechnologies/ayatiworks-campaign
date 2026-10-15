@@ -108,7 +108,7 @@ export default function EcommerceCaseStudySection() {
             </span>
 
             <h3 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight pt-1">
-              "Jeep India"
+              Jeep India
             </h3>
 
             <h4 className="text-lg sm:text-xl font-bold text-[#1541e0] leading-snug">

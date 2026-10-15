@@ -372,7 +372,7 @@ export default function PlatformsSection() {
               xl:text-[42px]
             "
           >
-            Different Business Models, One Goal-
+            Different Business Models, One Goal:
             <br className="hidden sm:block" />
             <span className="text-[#1541e0]">
               Meaningful Growth.

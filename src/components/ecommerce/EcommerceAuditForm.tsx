@@ -383,7 +383,7 @@ export default function EcommerceAuditForm({ id = "audit-form" }: EcommerceAudit
               30-min consultation • Zero spam • Actionable insights.
             </p>
             <p className="text-[10px] text-blue-200/70 pt-0.5">
-              Fast tracking your audit strategy - results delivered in 48 hours.
+              30-min consultation • Zero spam • Actionable insights.
             </p>
           </div>
         </form>

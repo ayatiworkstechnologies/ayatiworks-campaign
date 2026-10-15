@@ -135,8 +135,8 @@ export default function ThreeStepProcessSection() {
               02 &nbsp;|&nbsp; 90-DAY GROWTH PLAN
             </p>
             <h2 id="growth-steps-heading" className="text-3xl font-black leading-tight tracking-tight text-[#171c27] sm:text-4xl">
-              90 Days. Clear Priorities.
-              <span className="block text-[#1541e0]">Measurable Progress.</span>
+              90 Days.    Clear Priorities.
+              <span className="block text-[#1541e0]">  Measurable Progress.</span>
             </h2>
           </div>
           <p className="max-w-[540px] text-sm leading-7 text-[#677080] md:justify-self-end">

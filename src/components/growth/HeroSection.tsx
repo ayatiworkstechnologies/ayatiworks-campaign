@@ -86,12 +86,12 @@ export default function HeroSection() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
               <div className="overflow-hidden">
                 <div ref={headlineLine1Ref} className="will-change-transform will-change-opacity">
-                  Growth Marketing Measured in Revenue.
+                  Growth Marketing Measured in 
                 </div>
               </div>
               <div className="overflow-hidden">
                 <div ref={headlineLine2Ref} className="will-change-transform will-change-opacity text-[#1541e0]">
-                  Agency.
+                 Revenue.
                 </div>
               </div>
             </h1>

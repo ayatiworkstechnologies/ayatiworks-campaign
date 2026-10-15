@@ -12,6 +12,7 @@ interface FormData {
   fullName: string;
   workEmail: string;
   companyName: string;
+  phone: string;
   websiteUrl: string;
   companyStage: string;
   monthlyMarketingBudget: string;
@@ -22,6 +23,7 @@ const initialFormData: FormData = {
   fullName: "",
   workEmail: "",
   companyName: "",
+  phone: "",
   websiteUrl: "",
   companyStage: "",
   monthlyMarketingBudget: "",
@@ -29,17 +31,10 @@ const initialFormData: FormData = {
 };
 
 const inputStyles = `
-  w-full
-  h-[42px]
-  bg-white
-  text-[#1e293b]
+  w-full h-[42px] bg-white text-[#1e293b]
   placeholder:text-[#94a3b8]
-  text-[12px]
-  sm:text-[13px]
-  font-normal
-  rounded-[5px]
-  px-3
-  outline-none
+  text-[12px] sm:text-[13px] font-normal
+  rounded-[5px] px-3 outline-none
   border border-[#e2e8f0]
   transition-all duration-200
   focus:border-[#93c5fd]
@@ -47,13 +42,9 @@ const inputStyles = `
 `;
 
 const labelStyles = `
-  block
-  mb-[6px]
-  text-[11px]
-  sm:text-[12px]
-  font-semibold
-  text-white
-  leading-normal
+  block mb-[6px]
+  text-[11px] sm:text-[12px]
+  font-semibold text-white leading-normal
 `;
 
 export default function AuditForm({
@@ -64,29 +55,29 @@ export default function AuditForm({
 
   const [errorMessage, setErrorMessage] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-) => {
-  const target = e.target;
 
-  if (
-    target instanceof HTMLInputElement &&
-    target.type === "checkbox"
-  ) {
-    setFormData((prev) => ({
-      ...prev,
-      [target.name]: target.checked,
-    }));
-  } else {
-    setFormData((prev) => ({
-      ...prev,
-      [target.name]: target.value,
-    }));
-  }
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement
+    >
+  ) => {
+    const target = e.target;
 
-  setErrorMessage("");
-  setInfoMessage("");
-};
+    if (target.type === "checkbox") {
+      setFormData((prev) => ({
+        ...prev,
+        [target.name]: (target as HTMLInputElement).checked,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [target.name]: target.value,
+      }));
+    }
+
+    setErrorMessage("");
+    setInfoMessage("");
+  };
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>
@@ -113,6 +104,17 @@ const handleChange = (
 
     if (!formData.companyName.trim()) {
       setErrorMessage("Please enter your company name.");
+      return;
+    }
+
+    if (
+      !/^[+]?[0-9\s()-]{7,20}$/.test(
+        formData.phone.trim()
+      )
+    ) {
+      setErrorMessage(
+        "Please enter a valid phone number."
+      );
       return;
     }
 
@@ -149,8 +151,7 @@ const handleChange = (
     }
 
     // UI preview only.
-    // No customer information is submitted or stored.
-    // Connect a verified server-side endpoint later.
+    // Connect your verified backend API here.
     setInfoMessage(
       "This form is currently a design preview. " +
       "Your details have not been sent."
@@ -161,15 +162,10 @@ const handleChange = (
     <div
       id={id}
       className="
-        relative
-        w-full
-        overflow-hidden
-        rounded-[14px]
-        bg-[#1240f4]
-        px-5 py-5
-        sm:px-6 sm:py-6
-        lg:px-7 lg:py-7
-        text-white
+        relative w-full overflow-hidden
+        rounded-[14px] bg-[#1240f4]
+        px-5 py-5 sm:px-6 sm:py-6
+        lg:px-7 lg:py-7 text-white
       "
     >
       <form
@@ -177,14 +173,10 @@ const handleChange = (
         className="w-full"
         noValidate
       >
-        {/* FORM FIELDS */}
         <div
           className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            gap-x-3
-            gap-y-3.5
+            grid grid-cols-1 sm:grid-cols-2
+            gap-x-3 gap-y-3.5
           "
         >
           {/* Full Name */}
@@ -195,7 +187,6 @@ const handleChange = (
             >
               Full Name *
             </label>
-
             <input
               id={`${id}-fullName`}
               name="fullName"
@@ -217,7 +208,6 @@ const handleChange = (
             >
               Work Email *
             </label>
-
             <input
               id={`${id}-workEmail`}
               name="workEmail"
@@ -239,7 +229,6 @@ const handleChange = (
             >
               Company Name *
             </label>
-
             <input
               id={`${id}-companyName`}
               name="companyName"
@@ -253,22 +242,22 @@ const handleChange = (
             />
           </div>
 
-          {/* Website URL */}
+          {/* Phone Number - Replaced Website URL */}
           <div>
             <label
-              htmlFor={`${id}-websiteUrl`}
+              htmlFor={`${id}-phone`}
               className={labelStyles}
             >
-              Website URL *
+              Phone Number *
             </label>
-
             <input
-              id={`${id}-websiteUrl`}
-              name="websiteUrl"
-              type="url"
-              autoComplete="url"
-              placeholder="https://yourcompany.com"
-              value={formData.websiteUrl}
+              id={`${id}-phone`}
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+              placeholder="Enter your phone number"
+              value={formData.phone}
               onChange={handleChange}
               className={inputStyles}
               required
@@ -292,28 +281,22 @@ const handleChange = (
                 onChange={handleChange}
                 className={`
                   ${inputStyles}
-                  appearance-none
-                  pr-9
-                  cursor-pointer
+                  appearance-none pr-9 cursor-pointer
                 `}
                 required
               >
                 <option value="" disabled>
                   Select your company stage
                 </option>
-
                 <option value="startup">
                   Startup / Early Stage
                 </option>
-
                 <option value="growing">
                   Growing Business
                 </option>
-
                 <option value="established">
                   Established Business
                 </option>
-
                 <option value="scaling">
                   Scaling / Expansion Stage
                 </option>
@@ -321,12 +304,9 @@ const handleChange = (
 
               <svg
                 className="
-                  pointer-events-none
-                  absolute
-                  right-3 top-1/2
-                  h-4 w-4
-                  -translate-y-1/2
-                  text-[#64748b]
+                  pointer-events-none absolute
+                  right-3 top-1/2 h-4 w-4
+                  -translate-y-1/2 text-[#64748b]
                 "
                 fill="none"
                 stroke="currentColor"
@@ -360,32 +340,25 @@ const handleChange = (
                 onChange={handleChange}
                 className={`
                   ${inputStyles}
-                  appearance-none
-                  pr-9
-                  cursor-pointer
+                  appearance-none pr-9 cursor-pointer
                 `}
                 required
               >
                 <option value="" disabled>
                   Select your marketing budget
                 </option>
-
                 <option value="below-1-lakh">
                   Below ₹1 Lakh
                 </option>
-
                 <option value="1-5-lakhs">
                   ₹1 Lakh - ₹5 Lakhs
                 </option>
-
                 <option value="5-10-lakhs">
                   ₹5 Lakhs - ₹10 Lakhs
                 </option>
-
                 <option value="10-20-lakhs">
                   ₹10 Lakhs - ₹20 Lakhs
                 </option>
-
                 <option value="above-20-lakhs">
                   Above ₹20 Lakhs
                 </option>
@@ -393,12 +366,9 @@ const handleChange = (
 
               <svg
                 className="
-                  pointer-events-none
-                  absolute
-                  right-3 top-1/2
-                  h-4 w-4
-                  -translate-y-1/2
-                  text-[#64748b]
+                  pointer-events-none absolute
+                  right-3 top-1/2 h-4 w-4
+                  -translate-y-1/2 text-[#64748b]
                 "
                 fill="none"
                 stroke="currentColor"
@@ -416,7 +386,28 @@ const handleChange = (
           </div>
         </div>
 
-        {/* AGREEMENT */}
+        {/* Website URL - Now Full Width */}
+        <div className="mt-3.5">
+          <label
+            htmlFor={`${id}-websiteUrl`}
+            className={labelStyles}
+          >
+            Website URL *
+          </label>
+          <input
+            id={`${id}-websiteUrl`}
+            name="websiteUrl"
+            type="url"
+            autoComplete="url"
+            placeholder="https://yourcompany.com"
+            value={formData.websiteUrl}
+            onChange={handleChange}
+            className={inputStyles}
+            required
+          />
+        </div>
+
+        {/* Agreement */}
         <div className="mt-4 flex items-start gap-2">
           <input
             id={`${id}-agreeToTerms`}
@@ -425,16 +416,11 @@ const handleChange = (
             checked={formData.agreeToTerms}
             onChange={handleChange}
             className="
-              mt-[2px]
-              h-[13px] w-[13px]
-              shrink-0
-              cursor-pointer
-              rounded-[2px]
-              border-white
-              bg-white
-              accent-white
-              focus:ring-2
-              focus:ring-white/50
+              mt-[2px] h-[13px] w-[13px]
+              shrink-0 cursor-pointer
+              rounded-[2px] border-white
+              bg-white accent-white
+              focus:ring-2 focus:ring-white/50
             "
             required
           />
@@ -442,81 +428,64 @@ const handleChange = (
           <label
             htmlFor={`${id}-agreeToTerms`}
             className="
-              cursor-pointer
-              text-[10px]
-              sm:text-[11px]
-              leading-[1.5]
+              cursor-pointer text-[10px]
+              sm:text-[11px] leading-[1.5]
               text-white/95
             "
           >
-            I agree to be contacted by Ayatiworks
-            about my audit request. Your details
-            are intended only for this request;
-            submission is not connected yet.
+            I agree to be contacted by Ayatiworks about
+            my growth roadmap request. We will never
+            share your data.
           </label>
         </div>
 
-        {/* ERROR / INFORMATION */}
+        {/* Error Message */}
         {errorMessage && (
           <div
             role="alert"
             className="
-              mt-4 rounded-md
-              bg-white px-3 py-2
-              text-[12px]
-              text-red-700
+              mt-4 rounded-md bg-white
+              px-3 py-2 text-[12px] text-red-700
             "
           >
             {errorMessage}
           </div>
         )}
 
+        {/* Information Message */}
         {infoMessage && (
           <div
             role="status"
             className="
-              mt-4 rounded-md
-              border border-white/30
-              bg-white/15 px-3 py-2
-              text-center text-[12px]
-              text-white
+              mt-4 rounded-md border
+              border-white/30 bg-white/15
+              px-3 py-2 text-center
+              text-[12px] text-white
             "
           >
             {infoMessage}
           </div>
         )}
 
-        {/* SUBMIT BUTTON */}
+        {/* Submit Button */}
         <div className="mt-6 flex justify-center">
           <button
             type="submit"
             className="
-              group
-              inline-flex
-              min-h-[36px]
-              max-w-full
-              items-center
-              justify-center
-              gap-2
-              bg-white
-              px-3 py-1.5
-              text-[#1240f4]
-              shadow-sm
-              transition-all
-              duration-200
-              hover:bg-[#f3f6ff]
-              hover:shadow-md
-              active:scale-[0.98]
+              group inline-flex min-h-[36px]
+              max-w-full items-center
+              justify-center gap-2 bg-white
+              px-3 py-1.5 text-[#1240f4]
+              shadow-sm transition-all
+              duration-200 hover:bg-[#f3f6ff]
+              hover:shadow-md active:scale-[0.98]
             "
           >
             <span
               className="
-                text-center
-                text-[10px]
-                sm:text-[11px]
-                font-extrabold
-                uppercase
-                tracking-[0.01em]
+                text-center text-[10px]
+                sm:text-[11px] font-extrabold
+                uppercase tracking-[0.01em]
                 leading-tight
               "
             >
@@ -525,14 +494,10 @@ const handleChange = (
 
             <span
               className="
-                flex
-                h-[23px] w-[23px]
-                shrink-0
-                items-center
-                justify-center
-                bg-[#f47721]
-                text-white
-                transition-transform
+                flex h-[23px] w-[23px]
+                shrink-0 items-center
+                justify-center bg-[#f47721]
+                text-white transition-transform
                 duration-200
                 group-hover:translate-x-0.5
               "
@@ -545,39 +510,28 @@ const handleChange = (
           </button>
         </div>
 
-        {/* DISCLAIMER */}
+        {/* Disclaimer */}
         <div
           className="
-            mt-4
-            text-center
-            text-[10px]
-            sm:text-[11px]
-            leading-[1.65]
-            text-white/85
+            mt-4 text-center
+            text-[10px] sm:text-[11px]
+            leading-[1.65] text-white/85
           "
         >
           <p
             className="
-              flex flex-wrap
-              items-center
-              justify-center
-              gap-1
+              flex flex-wrap items-center
+              justify-center gap-1
             "
           >
             <HiOutlineLockClosed
               className="h-3 w-3"
               aria-hidden="true"
             />
-
             <span>
               No obligation. Just a clearer path
               to growth.
             </span>
-          </p>
-
-          <p>
-            Audit booking and scheduling are not
-            connected yet. No details will be sent.
           </p>
         </div>
       </form>

@@ -86,7 +86,7 @@ export default function EcommerceHeroSection() {
               </div>
               <div className="overflow-hidden">
                 <div ref={headlineLine2Ref} className="will-change-transform will-change-opacity text-[#1541e0]">
-                  Not Reach.
+                 &nbsp Not Reach.
                 </div>
               </div>
             </h1>
