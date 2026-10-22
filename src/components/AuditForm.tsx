@@ -2,12 +2,17 @@
 
 import React, { useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
+import { detectCampaignName } from "@/lib/campaignDetector";
 
 interface AuditFormProps {
   id?: string;
+  campaignName?: string;
 }
 
-export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
+export default function AuditForm({
+  id = "audit-form",
+  campaignName,
+}: AuditFormProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     workEmail: "",
@@ -70,6 +75,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
     }
 
     setIsSubmitting(true);
+    const detectedCampaign = detectCampaignName(campaignName);
     const payload = {
       data: {
         fullname: formData.fullName.trim(),
@@ -79,6 +85,7 @@ export default function AuditForm({ id = "audit-form" }: AuditFormProps) {
         adspend: formData.adSpend,
         goal: formData.goal,
         agreetoterms: formData.agreeToTerms ? "true" : "false",
+        campaign_name: detectedCampaign,
       },
     };
 

@@ -121,7 +121,7 @@ export default function EcommerceHeroSection() {
 
           {/* Right Column: Royal Blue Form Box */}
           <div ref={formWrapRef} className="lg:col-span-6 will-change-transform will-change-opacity">
-            <EcommerceAuditForm id="ecommerce-audit-form" />
+            <EcommerceAuditForm id="ecommerce-audit-form" campaignName="E-commerce & D2C Growth Agency" />
           </div>
         </div>
       </div>

@@ -3,9 +3,11 @@
 
 import React, { useState } from "react";
 import { HiArrowRight, HiOutlineLockClosed } from "react-icons/hi2";
+import { detectCampaignName, CAMPAIGN_NAMES } from "@/lib/campaignDetector";
 
 interface AuditFormProps {
   id?: string;
+  campaignName?: string;
 }
 
 interface FormData {
@@ -49,10 +51,13 @@ const labelStyles = `
 
 export default function AuditForm({
   id = "audit-form",
+  campaignName,
 }: AuditFormProps) {
   const [formData, setFormData] =
     useState<FormData>(initialFormData);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
 
@@ -79,7 +84,7 @@ export default function AuditForm({
     setInfoMessage("");
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -150,12 +155,43 @@ export default function AuditForm({
       return;
     }
 
-    // UI preview only.
-    // Connect your verified backend API here.
-    setInfoMessage(
-      "This form is currently a design preview. " +
-      "Your details have not been sent."
+    setIsSubmitting(true);
+    const detectedCampaign = detectCampaignName(
+      campaignName || CAMPAIGN_NAMES.GROWTH
     );
+
+    const payload = {
+      data: {
+        fullname: formData.fullName.trim(),
+        workemail: formData.workEmail.trim(),
+        phonenumber: formData.phone.trim(),
+        websiteurl: formData.websiteUrl.trim(),
+        adspend: formData.monthlyMarketingBudget,
+        goal: formData.companyStage,
+        agreetoterms: formData.agreeToTerms ? "true" : "false",
+        campaign_name: detectedCampaign,
+      },
+    };
+
+    try {
+      const response = await fetch("/api/audit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit request.");
+      }
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+    } catch {
+      setIsSubmitting(false);
+      setErrorMessage(
+        "We could not submit your request. Please try again or contact Ayatiworks directly."
+      );
+    }
   };
 
   return (
@@ -168,6 +204,41 @@ export default function AuditForm({
         lg:px-7 lg:py-7 text-white
       "
     >
+      {isSuccess ? (
+        <div className="py-10 px-4 text-center space-y-4 animate-fade-in relative z-10">
+          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto text-white backdrop-blur-sm border border-white/30 shadow-inner">
+            <svg
+              className="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-black tracking-tight">
+            Growth Roadmap Request Received!
+          </h3>
+          <p className="text-blue-100 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
+            Thank you, <span className="font-bold text-white">{formData.fullName}</span>. One of our Senior Growth Strategists will review your request and connect with you shortly.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setIsSuccess(false);
+              setFormData(initialFormData);
+            }}
+            className="mt-4 px-6 py-2 rounded-lg bg-white text-[#1240f4] font-bold text-xs sm:text-sm hover:bg-blue-50 transition-all duration-200 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            Submit Another Request
+          </button>
+        </div>
+      ) : (
       <form
         onSubmit={handleSubmit}
         className="w-full"
@@ -471,6 +542,7 @@ export default function AuditForm({
         <div className="mt-6 flex justify-center">
           <button
             type="submit"
+            disabled={isSubmitting}
             className="
               group inline-flex min-h-[36px]
               max-w-full items-center
@@ -479,6 +551,7 @@ export default function AuditForm({
               shadow-sm transition-all
               duration-200 hover:bg-[#f3f6ff]
               hover:shadow-md active:scale-[0.98]
+              disabled:opacity-75 disabled:cursor-not-allowed
             "
           >
             <span
@@ -489,7 +562,7 @@ export default function AuditForm({
                 leading-tight
               "
             >
-              GET MY FREE GROWTH ROADMAP
+              {isSubmitting ? "PREPARING ROADMAP..." : "GET MY FREE GROWTH ROADMAP"}
             </span>
 
             <span
@@ -535,6 +608,7 @@ export default function AuditForm({
           </p>
         </div>
       </form>
+      )}
     </div>
   );
 }

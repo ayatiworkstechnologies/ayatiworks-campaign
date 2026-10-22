@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { detectCampaignName } from "@/lib/campaignDetector";
 
 // Direct Ayatiworks Campaign Form API Endpoint & Authentication Header
 const AYATIWORKS_ENDPOINT =
@@ -13,16 +14,25 @@ export async function POST(request: Request) {
 
     const fullname = data.fullname || data.fullName || "";
     const workemail = data.workemail || data.workEmail || "";
-    const phonenumber = data.phonenumber || data.phoneNumber || "";
+    const phonenumber = data.phonenumber || data.phoneNumber || data.phone || "";
     const websiteurl = data.websiteurl || data.websiteUrl || "";
-    const adspend = data.adspend || data.adSpend || "";
-    const goal = data.goal || "";
+    const adspend = data.adspend || data.adSpend || data.monthlyMarketingBudget || "";
+    const goal = data.goal || data.companyStage || "";
     const agreetoterms =
       data.agreetoterms === "true" ||
       data.agreetoterms === true ||
       data.agreeToTerms === true
         ? "true"
         : "false";
+
+    // Detect campaign name from payload or referer
+    const referer = request.headers.get("referer");
+    const rawCampaign =
+      data.campaign_name ||
+      data.campaignName ||
+      data.campaign ||
+      "";
+    const campaign_name = detectCampaignName(rawCampaign, referer);
 
     if (!fullname || !workemail || !phonenumber || !websiteurl) {
       return NextResponse.json(
@@ -41,6 +51,7 @@ export async function POST(request: Request) {
         adspend,
         goal,
         agreetoterms,
+        campaign_name,
       },
     };
 

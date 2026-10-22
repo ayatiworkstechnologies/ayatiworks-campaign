@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
 import { CampaignConfig } from "@/data/campaigns";
+import { detectCampaignName } from "@/lib/campaignDetector";
 
 interface DynamicAuditFormProps {
   campaign: CampaignConfig;
@@ -75,6 +76,7 @@ export default function DynamicAuditForm({
     }
 
     setIsSubmitting(true);
+    const detectedCampaign = detectCampaignName(campaign.title || campaign.id);
     const payload = {
       data: {
         fullname: formData.fullName.trim(),
@@ -84,7 +86,7 @@ export default function DynamicAuditForm({
         adspend: formData.adSpend,
         goal: formData.goal,
         agreetoterms: formData.agreeToTerms ? "true" : "false",
-        campaign: campaign.id,
+        campaign_name: detectedCampaign,
       },
     };
 

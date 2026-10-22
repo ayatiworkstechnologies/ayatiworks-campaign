@@ -125,7 +125,7 @@ export default function HeroSection() {
 
           {/* Right Column: Royal Blue Form Box */}
           <div ref={formWrapRef} className="lg:col-span-6 will-change-transform will-change-opacity">
-            <AuditForm id="audit-form" />
+            <AuditForm id="audit-form" campaignName="Growth Marketing Agency" />
           </div>
         </div>
       </div>

@@ -2,12 +2,17 @@
 
 import React, { useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
+import { detectCampaignName, CAMPAIGN_NAMES } from "@/lib/campaignDetector";
 
 interface EcommerceAuditFormProps {
   id?: string;
+  campaignName?: string;
 }
 
-export default function EcommerceAuditForm({ id = "audit-form" }: EcommerceAuditFormProps) {
+export default function EcommerceAuditForm({
+  id = "audit-form",
+  campaignName,
+}: EcommerceAuditFormProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     workEmail: "",
@@ -70,6 +75,7 @@ export default function EcommerceAuditForm({ id = "audit-form" }: EcommerceAudit
     }
 
     setIsSubmitting(true);
+    const detectedCampaign = detectCampaignName(campaignName || CAMPAIGN_NAMES.ECOMMERCE);
     const payload = {
       data: {
         fullname: formData.fullName.trim(),
@@ -79,7 +85,7 @@ export default function EcommerceAuditForm({ id = "audit-form" }: EcommerceAudit
         adspend: formData.adSpend,
         goal: formData.goal,
         agreetoterms: formData.agreeToTerms ? "true" : "false",
-        campaign: "ecommerce_d2c_growth_agency",
+        campaign_name: detectedCampaign,
       },
     };
 
